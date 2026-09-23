@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">Get data</button>
+    <div id="data1"></div>
+   <script>
+
+     async function makerequest(){
+       const response = await fetch("https://api.thecatapi.com/v1/images/search");
+       const data = await response.json();
+       const width = data[0].width;
+       return width;
+    }
+
+    const btn = document.getElementById('btn');
+    const data1 = document.getElementById('data1')
+    btn.onclick = async function(){
+        const width = await makerequest();
+        data1.textContent = width;
+    };
+
+
+
+    function sayhello(){
+        return new Promise(function(resolve){
+            setTimeout(() =>{
+                resolve()
+            }, 3000)
+        })
+        
+    }
+      async function hello() {
+        await sayhello();
+        console.log('hello');
+        
+      }
+    hello();
+
+
+     function number(){
+        return new Promise(function(resolve){
+            setTimeout(() =>{
+                resolve()
+            }, 1000)
+        })
+    }
+    async function getnumber() {
+        await number ()
+        console.log(42);
+        
+    }
+    getnumber();
+    
+   </script> 
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fetch</title>
+</head>
+<body>
+    <img src="" id="catimage" style="width: 400px; height: 400px; object-fit: contain;">
+    <button id="gnimage">GENERATE BUTTON</button>
+    <script>
+        async function makerequest() {
+            const reponse = await fetch(
+                "https://api.thecatapi.com/v1/images/search",
+            );
+        const data = await response.json();
+        const theimage = data[0].url;
+        return theimage;
+        }
+
+        const catimage = document.getElementById('catimage');
+        const gnimage = document.getElementById('gnimage');
+
+        gnimage.onclick = async function () {
+            const theimage = await makerequest();
+            catimage.src = theimage
+        };
+
+        function mk(){
+            return new Promise(function(resolve){
+                setTimeout(() => {
+                    resolve();
+                }, 3000);
+            });
+        }
+
+        async function counter() { 
+            for (let i = 0; i < 5;i++){
+                await mk();
+                console.log(i);
+            }
+        }
+
+        counter();
+
+
+        async function makerequest() {
+        const reponse = await fetch('http://localhost:3000/numper',{
+            method : 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(
+                {
+                phonenumber:123456
+            }
+        )
+        }) 
+        const data = await reponse.json();
+        console.log(data);   
+        }
+
+        makerequest();
+
+
+        async function signup() {
+            const res = await fetch('https://localhost:3000/signup',{
+                method:'POST',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'email': 'asdddddd',
+                    'password': 'ddfffff'
+                })
+            })
+            const data = await res.json();
+            console.log(data)
+        }
+        signup()
+    </script>
+</body>
+</html>
